@@ -1,6 +1,8 @@
 <?php 
     session_start();
     include_once '../../Models/Database.php';
+
+    $role = $_SESSION['role'] ?? null;
 ?>
 
 <!DOCTYPE html>
@@ -9,48 +11,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../Public/Assets/CSS/Style.css">
+    <script src="../../../Public/Assets/JS/script.js" defer></script>
     <style>
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropbtn {
-            background-color: #4CAF50;
-            color: white;
-            padding: 16px;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown:hover .dropbtn {
-            background-color: #3e8e41;
-        }
+        
     </style>
     <title>ShopConnect</title>
 </head>
@@ -62,8 +25,8 @@
         <div class="user-info">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <?php
-                $conn = getConnection();
-                    if (isset($conn)) {
+                    $conn = getConnection();
+                    if ($conn) {
                         $userId = $_SESSION['user_id'];
                         $query = "SELECT name FROM users WHERE user_id = ?";
                         $stmt = $conn->prepare($query);
@@ -77,7 +40,6 @@
                         echo "<span>Database connection error</span>";
                     }
                 ?>
-                <span>&nbsp;</span>
                 <div class="nav-links">
                     <div class="dropdown">
                         <button class="dropbtn">Account</button>
@@ -88,6 +50,39 @@
                         </div>
                     </div>
                 </div>
+
+                <?php if ($role === 'admin'): ?>
+                    <div class="dropdown">
+                        <button class="dropbtn">Admin Panel</button>
+                        <div class="dropdown-content">
+                            <a href="../Admin/ManageUsers.php">Manage Users</a>
+                            <a href="../Admin/ManageProducts.php">Manage Products</a>
+                            <a href="../Admin/Reports.php">Reports</a>
+                            <a href="../Admin/Settings.php">Settings</a>
+                        </div>
+                    </div>
+                <?php elseif ($role === 'merchant'): ?>
+                    <div class="dropdown">
+                        <button class="dropbtn">Merchant Panel</button>
+                        <div class="dropdown-content">
+                            <a href="../Merchant/ManageProducts.php">Manage Products</a>
+                            <a href="../Merchant/ViewOrders.php">View Orders</a>
+                            <a href="../Merchant/Profile.php">Update Profile</a>
+                        </div>
+                    </div>
+                <?php elseif ($role === 'customer'): ?>
+                    <div class="dropdown">
+                        <button class="dropbtn">Customer Dashboard</button>
+                        <div class="dropdown-content">
+                            <a href="../Customer/ViewOrders.php">My Orders</a>
+                            <a href="../Customer/Wishlist.php">Wishlist</a>
+                            <a href="../Customer/Profile.php">My Profile</a>
+                        </div>
+                    </div>
+                <?php endif; ?>
+
+            <?php else: ?>
+                <span><a href="../Auth/login.php" style="color:white;">Login</a></span>
             <?php endif; ?>
         </div>
     </header>
