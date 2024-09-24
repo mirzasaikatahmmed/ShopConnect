@@ -210,4 +210,115 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // Update Profile Merchant
+    const updateProfileMerchantForm = document.getElementById('updateProfileMerchantForm');
+    if (updateProfileMerchantForm) {
+        const nameField = document.getElementById('name');
+        const emailField = document.getElementById('email');
+        const businessNameField = document.getElementById('business_name');
+        const businessAddressField = document.getElementById('business_address');
+        const contactNumberField = document.getElementById('contact_number');
+        const businessLicenseField = document.getElementById('business_license');
+
+        const nameError = document.getElementById('name-error');
+        const emailError = document.getElementById('email-error');
+        const businessNameError = document.getElementById('business_name-error');
+        const businessAddressError = document.getElementById('business_address-error');
+        const contactNumberError = document.getElementById('contact_number-error');
+        const businessLicenseError = document.getElementById('business_license-error');
+        const statusMessage = document.getElementById('update-status');
+
+        const showError = (field, errorMessage, errorElement) => {
+            if (field.value.trim() === '') {
+                errorElement.textContent = errorMessage;
+                field.classList.add('invalid');
+            } else {
+                errorElement.textContent = '';
+                field.classList.remove('invalid');
+            }
+        };
+
+        [nameField, emailField, businessNameField, businessAddressField, contactNumberField, businessLicenseField].forEach(field => {
+            field.addEventListener('blur', function () {
+                showError(field, `${field.name.replace('_', ' ')} cannot be empty.`, document.getElementById(`${field.id}-error`));
+            });
+
+            field.addEventListener('focus', function () {
+                document.getElementById(`${field.id}-error`).textContent = '';
+                field.classList.remove('invalid');
+            });
+        });
+
+        updateProfileMerchantForm.addEventListener('submit', (e) => {
+            const name = nameField.value.trim();
+            const email = emailField.value.trim();
+            const businessName = businessNameField.value.trim();
+            const businessAddress = businessAddressField.value.trim();
+            const contactNumber = contactNumberField.value.trim();
+            const businessLicense = businessLicenseField.value.trim();
+
+            let valid = true;
+
+            nameError.textContent = '';
+            emailError.textContent = '';
+            businessNameError.textContent = '';
+            businessAddressError.textContent = '';
+            contactNumberError.textContent = '';
+            businessLicenseError.textContent = '';
+
+            if (!name) {
+                nameError.textContent = 'Full Name is required.';
+                valid = false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email) {
+                emailError.textContent = 'Email is required.';
+                valid = false;
+            } else if (!emailRegex.test(email)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                valid = false;
+            }
+
+            if (!businessName) {
+                businessNameError.textContent = 'Business Name is required.';
+                valid = false;
+            }
+
+            if (!businessAddress) {
+                businessAddressError.textContent = 'Business Address is required.';
+                valid = false;
+            }
+
+            if (!contactNumber) {
+                contactNumberError.textContent = 'Contact Number is required.';
+                valid = false;
+            }
+
+            if (!businessLicense) {
+                businessLicenseError.textContent = 'Business License is required.';
+                valid = false;
+            }
+
+            if (valid) {
+                e.preventDefault();
+
+                const formData = new FormData(updateProfileMerchantForm);
+
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '../../../App/Controllers/ProfileController.php', true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        const response = xhr.responseText;
+                        statusMessage.textContent = response;
+                    }
+                };
+
+                xhr.send(formData);
+            } else {
+                e.preventDefault();
+            }
+        });
+    }
 });

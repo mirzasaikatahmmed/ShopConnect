@@ -43,4 +43,39 @@ function createMerchant($name, $email, $password, $role, $profileImage, $busines
     mysqli_close($conn);
     return false;
 }
+
+function updateMerchant($merchantId, $name, $email, $businessName, $businessAddress, $contactNumber, $businessLicense) {
+    $conn = getConnection();
+    $sql = "UPDATE users u 
+            JOIN merchants m ON u.user_id = m.user_id 
+            SET u.name = '$name', u.email = '$email', m.business_name = '$businessName', m.business_address = '$businessAddress', m.contact_number = '$contactNumber', m.business_license = '$businessLicense', u.updated_at = NOW() 
+            WHERE m.merchant_id = $merchantId";
+    
+    if (mysqli_query($conn, $sql)) {
+        mysqli_close($conn);
+        return true;
+    }
+    
+    mysqli_close($conn);
+    return false;
+}
+
+function getUserDataById($user_id) {
+    $conn = getConnection();
+    $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function getMerchantDataByUserId($user_id) {
+    $conn = getConnection();
+    $stmt = $conn->prepare("SELECT * FROM merchants WHERE user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
 ?>

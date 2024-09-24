@@ -75,4 +75,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateMerchant'])) {
+    $merchantId = $_POST['merchant_id'];
+    $name = trim($_POST['name']);
+    $email = trim($_POST['email']);
+    $businessName = trim($_POST['business_name']);
+    $businessAddress = trim($_POST['business_address']);
+    $contactNumber = trim($_POST['contact_number']);
+    $businessLicense = trim($_POST['business_license']);
+
+    if (!validateEmail($email)) {
+        $_SESSION['error'] = 'Invalid email format.';
+        header('Location: ../Views/Common/Profile.php');
+        exit();
+    }
+
+    $updated = updateMerchant($merchantId, $name, $email, $businessName, $businessAddress, $contactNumber, $businessLicense);
+
+    if ($updated) {
+        $_SESSION['success'] = 'Profile updated successfully.';
+    } else {
+        $_SESSION['error'] = 'Update failed. Please try again.';
+    }
+
+    header('Location: ../Views/Common/Profile.php');
+    exit();
+}
+
+
 ?> 

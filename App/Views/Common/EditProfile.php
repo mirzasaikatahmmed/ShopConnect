@@ -9,24 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 $user = getUserDataById($user_id);
-
-// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//     $name = $_POST['name'];
-//     $contact_number = $_POST['contact_number'];
-//     $shipping_address = $_POST['shipping_address'];
-
-//     // Update user details in the database
-//     $result = updateUserData($user_id, $name, $contact_number, $shipping_address);
-
-//     if ($result) {
-//         $_SESSION['success'] = 'Profile updated successfully!';
-//     } else {
-//         $_SESSION['error'] = 'Failed to update profile.';
-//     }
-
-//     header('Location: EditProfile.php');
-//     exit();
-// }
 ?>
 
 <div class="edit-profile-container">

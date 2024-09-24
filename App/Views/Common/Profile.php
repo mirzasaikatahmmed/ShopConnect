@@ -65,6 +65,8 @@
     <div class="profile-actions">
         <?php if ($user && $user['role'] === 'admin'): ?>
             <a href="../Admin/EditProfile.php" class="btn-edit">Edit Profile</a>
+        <?php elseif ($user && $user['role'] === 'merchant'): ?>
+            <a href="../Merchant/EditProfile.php" class="btn-edit">Edit Profile</a>
         <?php else: ?>
             <a href="./EditProfile.php" class="btn-edit">Edit Profile</a>
         <?php endif; ?>
