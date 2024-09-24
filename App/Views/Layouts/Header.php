@@ -48,8 +48,7 @@
                             <a href="../Admin/Merchants.php">Manage Merchants</a>
                             <a href="../Admin/Users.php">Manage Users</a>
                             <a href="../Admin/Products.php">Manage Products</a>
-                            <a href="../Admin/Reports.php">Reports</a>
-                            <a href="../Admin/Settings.php">Settings</a>
+                            <a href="../Admin/Orders.php">Orders</a>
                         </div>
                     </div>
                 <?php elseif ($role === 'merchant'): ?>
