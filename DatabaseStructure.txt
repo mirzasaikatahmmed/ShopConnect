@@ -1,0 +1,85 @@
+CREATE TABLE users (
+    user_id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    email VARCHAR(100) UNIQUE,
+    password VARCHAR(255),
+    role ENUM('admin', 'merchant', 'customer') NOT NULL,
+    profile_image VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE merchants (
+    merchant_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,  -- Foreign key referencing users
+    business_name VARCHAR(255),
+    business_address VARCHAR(255),
+    contact_number VARCHAR(20),
+    business_license VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,  -- Foreign key referencing users
+    shipping_address VARCHAR(255),
+    contact_number VARCHAR(20),
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
+CREATE TABLE products (
+    product_id INT PRIMARY KEY AUTO_INCREMENT,
+    merchant_id INT,  -- Foreign key referencing merchants
+    name VARCHAR(255),
+    description TEXT,
+    price DECIMAL(10, 2),
+    stock INT,
+    product_image VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (merchant_id) REFERENCES merchants(merchant_id) ON DELETE CASCADE
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,  -- Foreign key referencing customers
+    total_price DECIMAL(10, 2),
+    status ENUM('pending', 'processed', 'shipped', 'delivered', 'cancelled') DEFAULT 'pending',  -- Status to be updated by Merchants and Admins
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE order_items (
+    order_item_id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT,  -- Foreign key referencing orders
+    product_id INT,  -- Foreign key referencing products
+    quantity INT,
+    price_at_purchase DECIMAL(10, 2),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
+);
+
+
+CREATE TABLE cart (
+    cart_id INT PRIMARY KEY AUTO_INCREMENT,
+    customer_id INT,  -- Foreign key referencing customers
+    product_id INT,  -- Foreign key referencing products
+    quantity INT,
+    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
+);
+
+CREATE TABLE order_status_log (
+    log_id INT PRIMARY KEY AUTO_INCREMENT,
+    order_id INT,  -- Foreign key referencing orders
+    updated_by INT,  -- Foreign key referencing users (Merchants or Admins)
+    old_status ENUM('pending', 'processed', 'shipped', 'delivered', 'cancelled'),
+    new_status ENUM('pending', 'processed', 'shipped', 'delivered', 'cancelled'),
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (updated_by) REFERENCES users(user_id) ON DELETE CASCADE
+);
+
