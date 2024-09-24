@@ -1,7 +1,6 @@
 <?php 
     session_start();
     include_once '../../Models/Database.php';
-
     $role = $_SESSION['role'] ?? null;
 ?>
 
