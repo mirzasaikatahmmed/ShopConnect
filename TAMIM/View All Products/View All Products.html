@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <script>
+        function loadProducts() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "get_products.php", true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    document.getElementById("productList").innerHTML = xhr.responseText;
+                } else {
+                    document.getElementById("productList").innerHTML = "Error loading products.";
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+    <button onclick="loadProducts()">View All Products</button>
+    <div id="productList"></div>
+</body>
+</html>

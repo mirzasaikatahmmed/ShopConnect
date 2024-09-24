@@ -1,0 +1,137 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    line-height: 2;
+    background-color: #145a66;
+    color: #ffffff;
+}
+
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #58909e;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.container1 {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #58909e;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #ffffff;  
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+
+form {
+    margin-bottom: 20px;
+}
+
+input, button {
+    display: block;
+    width: 91%;
+    margin: 10px 0;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+}
+
+button {
+    background-color: #000000;  
+    width: 100%;
+    color: white;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #407265;  
+}
+
+
+.error, .success {
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.error {
+    background-color: #530505;
+    color: white;
+}
+
+.success {
+    background-color: #59e9e2;
+    color: #2d3436;
+}
+
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 5px;
+    border: 2px solid #2ecc71;  
+    transition: transform 0.3s ease;
+}
+
+.photo img:hover {
+    transform: scale(1.05);
+}
+
+
+.page-home {
+    background-color: #e8f6e8;  
+
+.page-home .container {
+    border-top: 4px solid #43865f;  
+
+.page-gallery {
+    background-color: #ffe6e6;  
+
+.page-gallery .container {
+    border-top: 4px solid #ffffff;  
+
+.page-upload {
+    background-color: #f0fff0;  
+
+.page-upload .container {
+    border-top: 4px solid #38885a;  
+
+a {
+    color: #ffffff;  
+    text-decoration: none;
+}
+
+a {
+    color: #ffffff;
+    }
+
+a:hover {
+    color: #ffffff;  
+}
+
+
+@media (max-width: 600px) {
+    .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}

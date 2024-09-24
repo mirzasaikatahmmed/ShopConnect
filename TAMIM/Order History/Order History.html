@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order History</title>
+    <script>
+        function loadOrderHistory() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "get_order_history.php", true);
+            xhr.onload = function() {
+                document.getElementById("orderHistory").innerHTML = xhr.responseText;
+            };
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+    <button onclick="loadOrderHistory()">View Order History</button>
+    <div id="orderHistory"></div>
+</body>
+</html>
