@@ -40,23 +40,15 @@
                         echo "<span>Database connection error</span>";
                     }
                 ?>
-                <div class="nav-links">
-                    <div class="dropdown">
-                        <button class="dropbtn">Account</button>
-                        <div class="dropdown-content">
-                            <a href="../Common/Profile.php">Profile</a>
-                            <a href="../Auth/ChangePassword.php">Change Password</a>
-                            <a href="../../Controllers/LogoutController.php">Logout</a>
-                        </div>
-                    </div>
-                </div>
-
+                
                 <?php if ($role === 'admin'): ?>
                     <div class="dropdown">
                         <button class="dropbtn">Admin Panel</button>
                         <div class="dropdown-content">
-                            <a href="../Admin/ManageUsers.php">Manage Users</a>
-                            <a href="../Admin/ManageProducts.php">Manage Products</a>
+                            <a href="../Admin/Dashboard.php">Dashboard</a>
+                            <a href="../Admin/Merchants.php">Manage Merchants</a>
+                            <a href="../Admin/Users.php">Manage Users</a>
+                            <a href="../Admin/Products.php">Manage Products</a>
                             <a href="../Admin/Reports.php">Reports</a>
                             <a href="../Admin/Settings.php">Settings</a>
                         </div>
@@ -65,9 +57,10 @@
                     <div class="dropdown">
                         <button class="dropbtn">Merchant Panel</button>
                         <div class="dropdown-content">
-                            <a href="../Merchant/ManageProducts.php">Manage Products</a>
-                            <a href="../Merchant/ViewOrders.php">View Orders</a>
-                            <a href="../Merchant/Profile.php">Update Profile</a>
+                            <a href="../Merchant/MerchantDashboard.php">Dashboard</a>
+                            <a href="../Merchant/Products.php">Manage Products</a>
+                            <a href="../Merchant/Orders.php">View Orders</a>
+                            <a href="../Common/Profile.php">Update Profile</a>
                         </div>
                     </div>
                 <?php elseif ($role === 'customer'): ?>
@@ -80,6 +73,17 @@
                         </div>
                     </div>
                 <?php endif; ?>
+
+                <div class="nav-links">
+                    <div class="dropdown">
+                        <button class="dropbtn">Account</button>
+                        <div class="dropdown-content">
+                            <a href="../Common/Profile.php">Profile</a>
+                            <a href="../Auth/ChangePassword.php">Change Password</a>
+                            <a href="../../Controllers/LogoutController.php">Logout</a>
+                        </div>
+                    </div>
+                </div>
 
             <?php else: ?>
                 <span><a href="../Auth/login.php" style="color:white;">Login</a></span>
