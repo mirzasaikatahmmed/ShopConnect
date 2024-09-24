@@ -48,4 +48,17 @@ function getUserDataById($user_id) {
     return $user;
 }
 
+function getMerchantDataByUserId($user_id) {
+    $conn = getConnection();
+    $query = "SELECT * FROM merchants WHERE user_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $merchant = $result->fetch_assoc();
+    $stmt->close();
+    $conn->close();
+    return $merchant;
+}
+
 ?>
