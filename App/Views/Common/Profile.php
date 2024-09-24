@@ -32,8 +32,12 @@
                 <div class="profile-info">
                     <h2><?php echo $user['name']; ?></h2>
                     <p><strong>Email:</strong> <?php echo $user['email']; ?></p>
-                    <p><strong>Contact Number:</strong> <?php echo $user['contact_number']; ?></p>
-                    <p><strong>Shipping Address:</strong> <?php echo $user['shipping_address']; ?></p>
+                    <?php if (isset($user['contact_number'])): ?>
+                        <p><strong>Contact Number:</strong> <?php echo $user['contact_number']; ?></p>
+                    <?php endif; ?>
+                    <?php if (isset($user['shipping_address'])): ?>
+                        <p><strong>Shipping Address:</strong> <?php echo $user['shipping_address']; ?></p>
+                    <?php endif; ?>
                 </div>
             <?php elseif ($user['role'] === 'merchant'): ?>
                 <div class="profile-image">
