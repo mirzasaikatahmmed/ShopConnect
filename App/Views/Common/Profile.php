@@ -43,8 +43,11 @@
     </div>
     
     <div class="profile-actions">
-        <a href="./EditProfile.php" class="btn-edit">Edit Profile</a>
-        <!-- <a href="logout.php" class="btn-logout">Logout</a> -->
+        <?php if ($user && $user['role'] === 'admin'): ?>
+            <a href="../Admin/EditProfile.php" class="btn-edit">Edit Profile</a>
+        <?php else: ?>
+            <a href="./EditProfile.php" class="btn-edit">Edit Profile</a>
+        <?php endif; ?>
     </div>
 </div>
 <?php require_once '../Layouts/Footer.php'; ?>
