@@ -1,3 +1,7 @@
+<?php
+session_start();
+$email = isset($_SESSION['email']) ? $_SESSION['email'] : '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,12 +26,12 @@
                 <div class="form-group">
                     <label for="new-password">New Password:</label>
                     <input type="password" id="new-password" name="new_password" placeholder="Enter your new password" required>
-                    <p id="password-error-message" style="color:red;"></p> <!-- Error message for password -->
+                    <p id="password-error-message" style="color:red;"></p>
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Confirm Password:</label>
                     <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm your new password" required>
-                    <p id="confirm-error-message" style="color:red;"></p> <!-- Error message for confirmation -->
+                    <p id="confirm-error-message" style="color:red;"></p>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn-reset">Update Password</button>

@@ -1,6 +1,6 @@
 <?PHP
     SESSION_START();
-    include '../Models/.php';
+    include '../Models/User.php';
 
     $errors = [];
 
@@ -27,7 +27,7 @@
         $user = getUserByEmail($email);
         if ($user) {
             $_SESSION['user'] = $user;
-            header("Location: ../Views/Auth/ChangePassword.php");
+            header("Location: ../Views/Auth/ResetPassword.php");
             exit();
         } else {
             $_SESSION['err2'] = "Email not found";

@@ -437,6 +437,30 @@ document.addEventListener("DOMContentLoaded", () => {
         const passwordError = document.getElementById('password-error-message');
         const confirmError = document.getElementById('confirm-error-message');
 
+        const showError = (field, errorMessage, errorElement) => {
+            if (field.value.trim() === '') {
+                errorElement.textContent = errorMessage;
+                field.classList.add('invalid');
+            } else {
+                errorElement.textContent = '';
+                field.classList.remove('invalid');
+            }
+        };
+
+        newPasswordField.addEventListener('blur', () => {
+            showError(newPasswordField, 'Password must be at least 6 characters long.', passwordError);
+        });
+
+        confirmPasswordField.addEventListener('blur', () => {
+            if (newPasswordField.value !== confirmPasswordField.value) {
+                confirmError.textContent = 'Passwords do not match.';
+                confirmPasswordField.classList.add('invalid');
+            } else {
+                confirmError.textContent = '';
+                confirmPasswordField.classList.remove('invalid');
+            }
+        });
+
         resetPasswordForm.addEventListener('submit', function(event) {
             passwordError.textContent = '';
             confirmError.textContent = '';
@@ -447,8 +471,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 valid = false;
             }
             if (newPasswordField.value !== confirmPasswordField.value) {
-                    confirmError.textContent = 'Passwords do not match.';
-                    valid = false;
+                confirmError.textContent = 'Passwords do not match.';
+                valid = false;
             }
 
             if (!valid) {
@@ -462,6 +486,20 @@ document.addEventListener("DOMContentLoaded", () => {
     if (forgotPasswordForm) {
         const emailField = document.getElementById('email');
         const emailError = document.getElementById('email-error-message');
+
+        const showError = (field, errorMessage, errorElement) => {
+            if (field.value.trim() === '') {
+                errorElement.textContent = errorMessage;
+                field.classList.add('invalid');
+            } else {
+                errorElement.textContent = '';
+                field.classList.remove('invalid');
+            }
+        };
+
+        emailField.addEventListener('blur', () => {
+            showError(emailField, 'Please enter a valid email address.', emailError);
+        });
 
         forgotPasswordForm.addEventListener('submit', function(event) {
             emailError.textContent = '';
