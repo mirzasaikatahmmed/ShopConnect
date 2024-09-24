@@ -23,7 +23,6 @@ The project follows the **MVC** architecture, providing a clear separation betwe
 - **Login and Registration** for all users.
 - **Profile Management** for viewing and updating personal details.
 - **Order Management** for merchants and customers, ensuring smooth transaction and order tracking.
-- **Responsive Design** using **Bootstrap** for an optimized user experience.
 
 ## Installation:
 Clone the repository and follow the setup instructions provided in the documentation to get the platform running locally.
