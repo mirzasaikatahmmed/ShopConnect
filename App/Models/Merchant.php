@@ -78,4 +78,16 @@ function getMerchantDataByUserId($user_id) {
     return $result->fetch_assoc();
 }
 
+function getMerchantDataById($user_id) {
+    $conn = getConnection();
+    $stmt = $conn->prepare("SELECT m.merchant_id, u.name, m.business_name, m.business_address, m.contact_number, m.business_license, u.created_at 
+                            FROM merchants m 
+                            JOIN users u ON m.user_id = u.user_id 
+                            WHERE m.user_id = ?");
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
 ?>
