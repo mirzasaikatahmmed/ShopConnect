@@ -90,4 +90,32 @@ function getMerchantDataById($user_id) {
     return $result->fetch_assoc();
 }
 
+function getMerchantById($merchantId) {
+    $conn = getConnection();
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $stmt = $conn->prepare("SELECT m.merchant_id, u.name, u.email, m.business_name, m.business_address, m.contact_number, m.business_license, u.created_at 
+                            FROM merchants m 
+                            JOIN users u ON m.user_id = u.user_id 
+                            WHERE m.merchant_id = ?");
+    if (!$stmt) {
+        die("Statement preparation failed: " . $conn->error);
+    }
+
+    $stmt->bind_param("i", $merchantId);
+    if (!$stmt->execute()) {
+        die("Statement execution failed: " . $stmt->error);
+    }
+
+    $result = $stmt->get_result();
+    if ($result->num_rows === 0) {
+        return null;
+    }
+
+    return $result->fetch_assoc();
+}
+
+
 ?>

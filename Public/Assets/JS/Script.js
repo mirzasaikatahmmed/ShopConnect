@@ -321,4 +321,111 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // Change Password Form Logic
+    const changePasswordForm = document.getElementById('changePasswordForm');
+    if (changePasswordForm) {
+        const oldPasswordField = document.getElementById('old_password');
+        const newPasswordField = document.getElementById('new_password');
+        const confirmNewPasswordField = document.getElementById('confirm_new_password');
+        const oldPasswordError = document.getElementById('old-password-error');
+        const newPasswordError = document.getElementById('new-password-error');
+        const confirmNewPasswordError = document.getElementById('confirm-new-password-error');
+        const statusMessage = document.getElementById('status-message');
+
+        const showError = (field, errorMessage, errorElement) => {
+            if (field.value.trim() === '') {
+                errorElement.textContent = errorMessage;
+                field.classList.add('invalid');
+            } else {
+                errorElement.textContent = '';
+                field.classList.remove('invalid');
+            }
+        };
+
+        oldPasswordField.addEventListener('blur', function () {
+            const oldPassword = oldPasswordField.value.trim();
+
+            if (oldPassword !== "") {
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '../../../App/Controllers/CheckOldPassword.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        const response = xhr.responseText;
+
+                        oldPasswordError.textContent = '';
+
+                        if (response === 'incorrect') {
+                            oldPasswordError.textContent = 'Old password is incorrect.';
+                            oldPasswordField.classList.add('invalid');
+                        } else {
+                            oldPasswordField.classList.remove('invalid');
+                        }
+                    }
+                };
+
+                xhr.send('old_password=' + encodeURIComponent(oldPassword));
+            } else {
+                oldPasswordError.textContent = 'Old Password cannot be empty.';
+                oldPasswordField.classList.add('invalid');
+            }
+        });
+
+        changePasswordForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            oldPasswordError.textContent = '';
+            newPasswordError.textContent = '';
+            confirmNewPasswordError.textContent = '';
+            statusMessage.textContent = '';
+
+            const oldPassword = oldPasswordField.value.trim();
+            const newPassword = newPasswordField.value.trim();
+            const confirmNewPassword = confirmNewPasswordField.value.trim();
+
+            let valid = true;
+
+            if (oldPassword === '') {
+                oldPasswordError.textContent = 'Old Password cannot be empty.';
+                oldPasswordField.classList.add('invalid');
+                valid = false;
+            }
+
+            if (newPassword === '') {
+                newPasswordError.textContent = 'New Password cannot be empty.';
+                newPasswordField.classList.add('invalid');
+                valid = false;
+            }
+
+            if (confirmNewPassword === '') {
+                confirmNewPasswordError.textContent = 'Confirm New Password cannot be empty.';
+                confirmNewPasswordField.classList.add('invalid');
+                valid = false;
+            } else if (newPassword !== confirmNewPassword) {
+                confirmNewPasswordError.textContent = 'Passwords do not match.';
+                confirmNewPasswordField.classList.add('invalid');
+                valid = false;
+            }
+
+            if (valid) {
+                const formData = new FormData(changePasswordForm);
+
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', '../../../App/Controllers/ChangePasswordController.php', true);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        const response = xhr.responseText;
+                        statusMessage.textContent = response;
+
+                        if (response === 'Password changed successfully.') {
+                            changePasswordForm.reset();
+                        }
+                    }
+                };
+
+                xhr.send(formData);
+            }
+        });
+    }
 });

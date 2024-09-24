@@ -61,4 +61,21 @@ function getMerchantDataByUserId($user_id) {
     return $merchant;
 }
 
+function getUserById($userId) {
+    $conn = getConnection();
+    $stmt = $conn->prepare("SELECT * FROM users WHERE user_id = ?");
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function updateUserPassword($userId, $newPassword) {
+    $conn = getConnection();
+    $stmt = $conn->prepare("UPDATE users SET password = ? WHERE user_id = ?");
+    $stmt->bind_param("si", $newPassword, $userId);
+    $stmt->execute();
+    return $stmt->affected_rows;
+}
+
 ?>

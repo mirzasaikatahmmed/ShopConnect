@@ -28,7 +28,7 @@ $merchants = getMerchants();
                             <td><?php echo htmlspecialchars($merchant['contact_number']); ?></td>
                             <td><?php echo htmlspecialchars($merchant['business_license']); ?></td>
                             <td>
-                                <a class="btn action-btn edit-btn" href="EditMerchant.php?id=<?php echo $merchant['merchant_id']; ?>">Edit</a>
+                                <a class="btn action-btn edit-btn" href="EditMerchant.php?merchant_id=<?php echo $merchant['merchant_id']; ?>">Edit</a>
                                 <a class="btn action-btn delete-btn" href="DeleteMerchant.php?id=<?php echo $merchant['merchant_id']; ?>">Delete</a>
                             </td>
                         </tr>

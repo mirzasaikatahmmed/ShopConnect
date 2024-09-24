@@ -1429,3 +1429,163 @@ body {
     }
 }
 
+/* Change Password */
+.change-password-container {
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #e0e0e0;
+}
+
+.change-password-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: normal;
+}
+
+.change-password-container .input-group {
+    margin-bottom: 20px;
+}
+
+.change-password-container .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.change-password-container .input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+}
+
+.change-password-container .input-group input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
+}
+
+.change-password-container button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+}
+
+.change-password-container button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.change-password-container button:active {
+    transform: translateY(0);
+}
+
+.change-password-container .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.change-password-container .status-message {
+    color: green;
+    font-size: 14px;
+    text-align: center; 
+    margin-top: 10px;
+}
+
+/* Edit Merchant Profile from the Admin Dashboard */
+.edit-merchant-container {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 30px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s;
+}
+
+.edit-merchant-container:hover {
+    transform: translateY(-5px);
+}
+
+.edit-merchant-container h2 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.edit-merchant-container .input-group {
+    margin-bottom: 20px;
+}
+
+.edit-merchant-container .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #555;
+}
+
+.edit-merchant-container .input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none;
+}
+
+.edit-merchant-container .input-group input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.5);
+}
+
+.edit-merchant-container .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.edit-merchant-container .status-message {
+    color: green;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.edit-merchant-container button {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+}
+
+.edit-merchant-container button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.edit-merchant-container button:active {
+    transform: translateY(0);
+}
