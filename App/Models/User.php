@@ -72,10 +72,26 @@ function getUserById($userId) {
 
 function updateUserPassword($userId, $newPassword) {
     $conn = getConnection();
-    $stmt = $conn->prepare("UPDATE users SET password = ? WHERE user_id = ?");
+    $stmt = $conn->prepare("UPDATE users SET password = ?, updated_at = NOW() WHERE user_id = ?");
     $stmt->bind_param("si", $newPassword, $userId);
     $stmt->execute();
     return $stmt->affected_rows;
 }
 
+function getUserByEmail($email) {
+    $conn = getConnection();
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    return $result->fetch_assoc();
+}
+
+function updateUser($user) {
+    $conn = getConnection();
+    $stmt = $conn->prepare("UPDATE users SET password = ?, updated_at = NOW() WHERE email = ?");
+    $stmt->bind_param("ss", $user['password'], $user['email']);
+    $stmt->execute();
+    return $stmt->affected_rows;
+}
 ?>

@@ -13,7 +13,7 @@
             <h2>Forgot Your Password?</h2>
             <p>Enter your email address to reset your password</p>
             
-            <form action="process_forgot_password.php" method="POST">
+            <form action="../../Controllers/ForgotPasswordController.php" method="POST" novalidate>
                 <div class="form-group">
                     <label for="email">Email Address:</label>
                     <input type="email" id="email" name="email" placeholder="Enter your email" required>
