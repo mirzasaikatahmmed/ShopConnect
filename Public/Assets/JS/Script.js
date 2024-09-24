@@ -428,4 +428,55 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    // ResetPassword Form Logic
+    const resetPasswordForm = document.getElementById('resetPasswordForm');
+    if (resetPasswordForm) {
+        const newPasswordField = document.getElementById('new-password');
+        const confirmPasswordField = document.getElementById('confirm-password');
+        const passwordError = document.getElementById('password-error-message');
+        const confirmError = document.getElementById('confirm-error-message');
+
+        resetPasswordForm.addEventListener('submit', function(event) {
+            passwordError.textContent = '';
+            confirmError.textContent = '';
+
+            let valid = true;
+            if (newPasswordField.value.length < 6) {
+                passwordError.textContent = 'Password must be at least 6 characters long.';
+                valid = false;
+            }
+            if (newPasswordField.value !== confirmPasswordField.value) {
+                    confirmError.textContent = 'Passwords do not match.';
+                    valid = false;
+            }
+
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+    }
+
+    // Forgot Password Form Logic
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+    if (forgotPasswordForm) {
+        const emailField = document.getElementById('email');
+        const emailError = document.getElementById('email-error-message');
+
+        forgotPasswordForm.addEventListener('submit', function(event) {
+            emailError.textContent = '';
+            let valid = true;
+            const emailValue = emailField.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(emailValue)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                valid = false;
+            }
+
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+    }
 });
